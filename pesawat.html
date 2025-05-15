@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tiket Pesawat | Jalan Dulu</title>
+  <link rel="stylesheet" href="pesawat.css" />
+</head>
+<body>
+  <header class="hero">
+    <img src="img/download (4).jpg" alt="Hero Image" class="hero-bg">
+    <nav class="navbar">
+      <div class="brand">Jalan Dulu</div>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="destinations.html">Destination</a></li>
+        <li><a href="pesawat.html">Pesawat</a></li>
+        <li><a href="hotel.html">Hotel</a></li>
+      </ul>
+      <div class="auth-buttons">
+        <a href="login-signin.html" class="login">Login</a>
+        <a href="login-signin.html" class="signin">Sign In</a>
+      </div>
+    </nav>
+    <div class="hero-text">
+      <h1>Pesan Tiket Pesawat agar <br><span>memudahkan perjalanan anda</span></h1>
+    </div>
+  </header>
+
+  <div class="form-box">
+    <div class="form-item">
+      <label for="from">Dari</label>
+      <select id="from">
+        <option value="PDG">Padang PDG</option>
+        <option value="JKT">Jakarta JKTC</option>
+        <option value="DPS">Denpasar DPS</option>
+      </select>
+    </div>
+
+    <div class="form-item arrow">⇄</div>
+
+    <div class="form-item">
+      <label for="to">Ke</label>
+      <select id="to">
+        <option value="JKT">Jakarta JKTC</option>
+        <option value="PDG">Padang PDG</option>
+        <option value="SUB">Surabaya SUB</option>
+      </select>
+    </div>
+
+    <div class="form-item">
+      <label for="departure">Pergi</label>
+      <input type="date" id="departure" value="2025-05-09">
+    </div>
+
+    <div class="form-item">
+      <label for="return">Pulang</label>
+      <select id="return">
+        <option value="oneway">Sekali Jalan</option>
+        <option value="roundtrip">Pulang Pergi</option>
+      </select>
+    </div>
+
+    <div class="form-item">
+      <label for="passengers">Penumpang, Kelas</label>
+      <select id="passengers">
+        <option value="1-economy">1, Ekonomi</option>
+        <option value="2-business">2, Bisnis</option>
+        <option value="3-first">3, First Class</option>
+      </select>
+    </div>
+
+    <button class="search-btn">Ayo Cari</button>
+  </div>
+
+  <main class="content">
+    <h4 id="domestik-heading" style="display:none;">Domestik</h4>
+
+    <div class="airlines" style="display:none;">
+      <span class="airline" data-airline="lion-air">Lion Air</span>
+      <span class="airline" data-airline="citilink">Citilink</span>
+      <span class="airline" data-airline="sriwijaya-air">Sriwijaya Air</span>
+      <span class="airline" data-airline="garuda">Garuda Indonesia</span>
+      <span class="airline" data-airline="batik-air">Batik Air</span>
+
+    </div>
+
+    <div class="ticket-cards" id="ticket-cards" style="display:none;"></div>
+  </main>
+
+ <script>
+  const arrow = document.querySelector('.form-item.arrow');
+  const fromSelect = document.getElementById('from');
+  const toSelect = document.getElementById('to');
+  const ticketCardsDiv = document.querySelector('#ticket-cards');
+  const domestikHeading = document.getElementById('domestik-heading');
+  const airlinesDiv = document.querySelector('.airlines');
+  const searchBtn = document.querySelector('.search-btn');
+
+  // Fungsi update tampilan tiket
+  function updateTickets(from, to) {
+    domestikHeading.style.display = 'block';
+    airlinesDiv.style.display = 'block';
+    ticketCardsDiv.style.display = 'flex';
+
+    ticketCardsDiv.innerHTML = `
+  <div class="ticket-card">
+    <p><strong>${from}</strong> Ke <strong>${to}</strong></p>
+    <h3>IDR 1.216.426</h3>
+    <p>Sekali Jalan<br>9 Mei 25 - Lion Air</p>
+  </div>
+  <div class="ticket-card">
+    <p><strong>${from}</strong> Ke <strong>${to}</strong></p>
+    <h3>IDR 1.300.000</h3>
+    <p>Sekali Jalan<br>9 Mei 25 - Citilink</p>
+  </div>
+  <div class="ticket-card">
+    <p><strong>${from}</strong> Ke <strong>${to}</strong></p>
+    <h3>IDR 1.150.000</h3>
+    <p>Sekali Jalan<br>9 Mei 25 - Sriwijaya Air</p>
+  </div>
+  <div class="ticket-card">
+    <p><strong>${from}</strong> Ke <strong>${to}</strong></p>
+    <h3>IDR 1.500.000</h3>
+    <p>Sekali Jalan<br>9 Mei 25 - Garuda Indonesia</p>
+  </div>
+  <div class="ticket-card">
+    <p><strong>${from}</strong> Ke <strong>${to}</strong></p>
+    <h3>IDR 1.234.567</h3>
+    <p>Sekali Jalan<br>9 Mei 25 - Batik Air</p>
+  </div>
+`;
+
+  }
+
+  // Tombol "⇄" hanya tukar kota, tidak munculkan tiket
+  arrow.addEventListener('click', () => {
+    const temp = fromSelect.value;
+    fromSelect.value = toSelect.value;
+    toSelect.value = temp;
+  });
+
+  // Tombol "Ayo Cari" munculkan tiket
+  searchBtn.addEventListener('click', () => {
+    const fromText = fromSelect.options[fromSelect.selectedIndex].text;
+    const toText = toSelect.options[toSelect.selectedIndex].text;
+    updateTickets(fromText, toText);
+    domestikHeading.scrollIntoView({ behavior: 'smooth' });
+  });
+
+  // Klik nama maskapai filter tiket
+  document.querySelectorAll('.airline').forEach(airline => {
+    airline.addEventListener('click', function() {
+      const airlineName = this.dataset.airline;
+      const fromText = fromSelect.options[fromSelect.selectedIndex].text;
+      const toText = toSelect.options[toSelect.selectedIndex].text;
+
+      domestikHeading.style.display = 'block';
+      airlinesDiv.style.display = 'block';
+      ticketCardsDiv.style.display = 'flex';
+
+      const prices = {
+  'lion-air': '1.216.426',
+  'citilink': '1.300.000',
+  'sriwijaya-air': '1.150.000',
+  'garuda': '1.500.000',
+  'batik-air': '1.234.567'
+};
+
+
+      ticketCardsDiv.innerHTML = `
+        <div class="ticket-card">
+          <p><strong>${fromText}</strong> Ke <strong>${toText}</strong></p>
+          <h3>IDR ${prices[airlineName]}</h3>
+          <p>Sekali Jalan<br>9 Mei 25</p>
+        </div>
+      `;
+    });
+  });
+</script>
+
+
+
+</body>
+</html>

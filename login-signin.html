@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login & Sign In | Jalan Dulu</title>
+  <link rel="stylesheet" href="login-signin.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+  <div class="container" id="login-container">
+    <h2>Login</h2>
+    <form id="login-form">
+      <label for="login-email">Email</label>
+      <input type="email" id="login-email" placeholder="Masukkan email" required />
+
+      <label for="login-password">Password</label>
+      <div class="password-wrapper">
+        <input type="password" id="login-password" placeholder="Masukkan password" required />
+        <i toggle="#login-password" class="toggle-password fa fa-eye"></i>
+      </div>
+
+      <button type="submit">Masuk</button>
+    </form>
+
+    <div class="social-login">
+      <button class="google-login">
+        <i class="fab fa-google"></i> Masuk dengan Google
+      </button>
+      <button class="facebook-login">
+        <i class="fab fa-facebook-f"></i> Masuk dengan Facebook
+      </button>
+      <button class="phone-login">
+        <i class="fas fa-phone-alt"></i> Masuk dengan Nomor HP
+      </button>
+    </div>
+
+    <p class="toggle-link">
+      Belum punya akun? <a href="#" id="show-signin">Sign In</a>
+    </p>
+  </div>
+
+  <div class="container" id="signin-container" style="display:none;">
+    <h2>Sign In</h2>
+    <form id="signin-form">
+      <label for="signin-name">Nama Lengkap</label>
+      <input type="text" id="signin-name" placeholder="Masukkan nama lengkap" required />
+
+      <label for="signin-email">Email</label>
+      <input type="email" id="signin-email" placeholder="Masukkan email" required />
+
+      <label for="signin-password">Password</label>
+      <div class="password-wrapper">
+        <input type="password" id="signin-password" placeholder="Buat password" required />
+        <i toggle="#signin-password" class="toggle-password fa fa-eye"></i>
+      </div>
+
+      <button type="submit">Daftar</button>
+    </form>
+    <p class="toggle-link">
+      Sudah punya akun? <a href="#" id="show-login">Login</a>
+    </p>
+  </div>
+
+  <script>
+    const loginContainer = document.getElementById('login-container');
+    const signinContainer = document.getElementById('signin-container');
+    const showSignin = document.getElementById('show-signin');
+    const showLogin = document.getElementById('show-login');
+
+    showSignin.addEventListener('click', (e) => {
+      e.preventDefault();
+      loginContainer.style.display = 'none';
+      signinContainer.style.display = 'block';
+    });
+
+    showLogin.addEventListener('click', (e) => {
+      e.preventDefault();
+      signinContainer.style.display = 'none';
+      loginContainer.style.display = 'block';
+    });
+
+    document.getElementById('signin-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const name = document.getElementById('signin-name').value;
+      const email = document.getElementById('signin-email').value;
+      const password = document.getElementById('signin-password').value;
+
+      localStorage.setItem('user', JSON.stringify({ name, email, password }));
+      alert('Sign In berhasil! Silakan login.');
+      signinContainer.style.display = 'none';
+      loginContainer.style.display = 'block';
+    });
+
+    document.getElementById('login-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const email = document.getElementById('login-email').value;
+      const password = document.getElementById('login-password').value;
+      const storedUser = JSON.parse(localStorage.getItem('user'));
+
+      if (storedUser && storedUser.email === email && storedUser.password === password) {
+        alert('Login berhasil! Selamat datang, ' + storedUser.name);
+        window.location.href = "index.html";
+      } else {
+        alert('Email atau password salah!');
+      }
+    });
+
+    // Toggle password visibility with FontAwesome icons
+    document.querySelectorAll('.toggle-password').forEach(icon => {
+      icon.addEventListener('click', () => {
+        const input = document.querySelector(icon.getAttribute('toggle'));
+        if (input.type === "password") {
+          input.type = "text";
+          icon.classList.remove('fa-eye');
+          icon.classList.add('fa-eye-slash');
+        } else {
+          input.type = "password";
+          icon.classList.remove('fa-eye-slash');
+          icon.classList.add('fa-eye');
+        }
+      });
+    });
+  </script>
+</body>
+</html>

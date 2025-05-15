@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Detail Hotel | Jalan Dulu</title>
+  <link rel="stylesheet" href="hotel-detail.css" />
+</head>
+<body>
+  <header class="hero">
+    <img src="img/The Most Incredible Hotels in the World for Under $250.jpg" alt="Hero Image" class="hero-bg">
+    <nav class="navbar">
+      <div class="brand">Jalan Dulu</div>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="destinations.html">Destination</a></li>
+        <li><a href="pesawat.html">Pesawat</a></li>
+        <li><a href="hotel.html">Hotel</a></li>
+      </ul>
+      <div class="auth-buttons">
+         <a href="login-signin.html" class="login">Login</a>
+         <a href="login-signin.html" class="signin">Sign In</a>
+      </div>
+    </nav>
+    <div class="hero-text"></div>
+  </header>
+
+  <main class="content" style="padding: 1rem;">
+    <div id="hotel-detail" style="background: #f9f9f9; border-radius: 10px; padding: 1rem;"></div>
+    <div style="margin-top: 1.5rem;">
+      <a href="hotel.html" style="text-decoration: none; color: #fff; background: #5b4431; padding: 0.6rem 1.2rem; border-radius: 5px; display: inline-block;">← Kembali</a>
+    </div>
+  </main>
+
+  <script>
+    const detailDiv = document.getElementById('hotel-detail');
+    const hotel = JSON.parse(localStorage.getItem('selectedHotel'));
+
+    if (!hotel) {
+      detailDiv.innerHTML = '<p>Data hotel tidak ditemukan.</p>';
+    } else {
+      const facilitiesList = hotel.facilities.map(facility => `<li>${facility}</li>`).join('');
+      detailDiv.innerHTML = `
+        <h2>${hotel.name}</h2>
+        <img src="${hotel.img}" alt="${hotel.name}" style="width:300px; max-width:100%; border-radius:8px;" />
+        <p><strong>Rating:</strong> ${hotel.rating} ⭐ (${hotel.reviewCount} review)</p>
+        <p><strong>Lokasi:</strong> ${hotel.location}</p>
+        <p><strong>Review:</strong> ${hotel.review}</p>
+        <p><strong>Deskripsi:</strong> ${hotel.description}</p>
+        <h4>Fasilitas:</h4>
+        <ul>${facilitiesList}</ul>
+      `;
+    }
+  </script>
+</body>
+</html>

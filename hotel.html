@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pilih Hotel | Jalan Dulu</title>
+  <link rel="stylesheet" href="hotel.css" />
+</head>
+<body>
+  <header class="hero">
+    <img src="img/The Most Incredible Hotels in the World for Under $250.jpg" alt="Hero Image" class="hero-bg">
+    <nav class="navbar">
+      <div class="brand">Jalan Dulu</div>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="destinations.html">Destination</a></li>
+        <li><a href="pesawat.html">Pesawat</a></li>
+        <li><a href="hotel.html">Hotel</a></li>
+      </ul>
+      <div class="auth-buttons">
+        <a href="login-signin.html" class="login">Login</a>
+        <a href="login-signin.html" class="signin">Sign In</a>
+      </div>
+    </nav>
+    <div class="hero-text">
+      <h1>Booking Hotel yang  murah, <br><span>kenyamanan menginap Anda</span></h1>
+    </div>
+  </header>
+
+  <div class="form-box">
+    <div class="form-item">
+      <label for="destination">Tujuan</label>
+      <select id="destination">
+        <option value="Padang">Padang</option>
+        <option value="Jakarta">Jakarta</option>
+        <option value="Bali">Bali</option>
+        <option value="Surabaya">Surabaya</option>
+      </select>
+    </div>
+
+    <div class="form-item">
+      <label for="checkin">Check-in</label>
+      <input type="date" id="checkin" value="2025-05-09">
+    </div>
+
+    <div class="form-item">
+      <label for="checkout">Check-out</label>
+      <input type="date" id="checkout" value="2025-05-10">
+    </div>
+
+    <div class="form-item">
+      <label for="duration">Durasi (malam)</label>
+      <input type="number" id="duration" value="1" min="1" readonly>
+    </div>
+
+    <div class="form-item">
+      <label for="guests">Tamu</label>
+      <select id="guests">
+        <option value="1">1 Tamu</option>
+        <option value="2">2 Tamu</option>
+        <option value="3">3 Tamu</option>
+        <option value="4">4 Tamu</option>
+      </select>
+    </div>
+
+    <div class="form-item">
+      <label for="rooms">Kamar</label>
+      <select id="rooms">
+        <option value="1">1 Kamar</option>
+        <option value="2">2 Kamar</option>
+        <option value="3">3 Kamar</option>
+      </select>
+    </div>
+
+    <button class="search-btn">Cari Hotel</button>
+  </div>
+
+  <main class="content">
+    <h4 id="hotel-heading" style="display:none;">Pilihan Hotel</h4>
+    <div class="ticket-cards" id="hotel-cards" style="display:none;"></div>
+    <div id="hotel-detail" style="display:none; padding: 1rem; border-top: 1px solid #ccc; background: #f9f9f9; margin-top: 1rem; border-radius: 10px;"></div>
+  </main>
+
+  <script>
+    const checkinInput = document.getElementById('checkin');
+    const checkoutInput = document.getElementById('checkout');
+    const durationInput = document.getElementById('duration');
+    const searchBtn = document.querySelector('.search-btn');
+    const destinationSelect = document.getElementById('destination');
+    const hotelHeading = document.getElementById('hotel-heading');
+    const hotelCardsDiv = document.getElementById('hotel-cards');
+
+    const hotelData = {
+      'Padang': [
+  {
+    name: 'Daima',
+    img: 'img/daima.jpg',
+    review: 'Hotel nyaman di pusat kota Padang.',
+    rating: 4.2,
+    reviewCount: 158,
+    location: 'Jl. Jend. Sudirman No.17, Padang',
+    description: 'Daima Hotel menawarkan kenyamanan dengan akses mudah ke pusat kota dan fasilitas modern.',
+    facilities: ['Wi-Fi Gratis', 'Kolam Renang', 'Restoran', 'Layanan Kamar 24 Jam', 'Parkir Gratis']
+  },
+  {
+    name: 'Hw Hotel',
+    img: 'img/hw.jpg',
+    review: 'Dekat dengan pantai Padang, cocok untuk liburan.',
+    rating: 4.0,
+    reviewCount: 96,
+    location: 'Jl. Hayam Wuruk No.16, Padang',
+    description: 'HW Hotel memiliki view indah pantai dan lokasi strategis untuk kuliner lokal.',
+    facilities: ['Wi-Fi Gratis', 'Pusat Kebugaran', 'Ruang Rapat', 'Spa & Massage']
+  },
+  {
+    name: 'Whiz Prime',
+    img: 'img/whiz-prime-hotel-khatib.jpg',
+    review: 'Hotel modern dengan harga terjangkau.',
+    rating: 3.8,
+    reviewCount: 75,
+    location: 'Jl. Khatib Sulaiman No.48, Padang',
+    description: 'Whiz Prime menawarkan kenyamanan modern dengan harga bersahabat.',
+    facilities: ['Wi-Fi Gratis', 'AC', 'Kamar Bebas Rokok', 'Layanan Laundry']
+  }
+]
+    };
+
+    function updateDuration() {
+      const checkinDate = new Date(checkinInput.value);
+      const checkoutDate = new Date(checkoutInput.value);
+
+      if (checkoutDate > checkinDate) {
+        const diffTime = checkoutDate - checkinDate;
+        const diffDays = diffTime / (1000 * 60 * 60 * 24);
+        durationInput.value = diffDays;
+      } else {
+        durationInput.value = 1;
+      }
+    }
+
+    checkinInput.addEventListener('change', updateDuration);
+    checkoutInput.addEventListener('change', updateDuration);
+
+    function showHotelDetail(hotel) {
+      const detailDiv = document.getElementById('hotel-detail');
+      const facilitiesList = hotel.facilities.map(facility => `<li>${facility}</li>`).join('');
+      detailDiv.innerHTML = `
+        <h2>Detail Hotel: ${hotel.name}</h2>
+        <img src="${hotel.img}" alt="${hotel.name}" style="width:300px; max-width:100%; border-radius:8px;" />
+        <p><strong>Rating:</strong> ${hotel.rating} ⭐ (${hotel.reviewCount} review)</p>
+        <p><strong>Lokasi:</strong> ${hotel.location}</p>
+        <p><strong>Review:</strong> ${hotel.review}</p>
+        <p><strong>Deskripsi:</strong> ${hotel.description}</p>
+        <h4>Fasilitas:</h4>
+        <ul>${facilitiesList}</ul>
+      `;
+      detailDiv.style.display = 'block';
+      detailDiv.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    searchBtn.addEventListener('click', () => {
+      const destination = destinationSelect.value;
+      const hotels = hotelData[destination] || [];
+      const guests = document.getElementById('guests').value;
+      const rooms = document.getElementById('rooms').value;
+      const duration = durationInput.value;
+      const checkin = checkinInput.value;
+      const checkout = checkoutInput.value;
+
+      if (hotels.length === 0) {
+        hotelCardsDiv.innerHTML = '<p>Tidak ada hotel yang tersedia di tujuan ini.</p>';
+      } else {
+        hotelCardsDiv.innerHTML = hotels.map((hotel, index) => `
+          <div class="ticket-card" data-index="${index}">
+            <img src="${hotel.img}" alt="${hotel.name}" class="hotel-img" />
+            <h3>${hotel.name}</h3>
+            <p>${hotel.review}</p>
+            <p><strong>Rating:</strong> ${hotel.rating} ⭐</p>
+            <p><strong>Lokasi:</strong> ${hotel.location}</p>
+          </div>
+        `).join('');
+
+        document.querySelectorAll('.ticket-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const index = card.getAttribute('data-index');
+                const selectedHotel = hotels[index];
+                localStorage.setItem('selectedHotel', JSON.stringify(selectedHotel));
+                window.location.href = 'hotel-detail.html';
+            });
+            });
+
+      }
+
+      hotelHeading.style.display = 'block';
+      hotelCardsDiv.style.display = 'flex';
+      hotelHeading.scrollIntoView({ behavior: 'smooth' });
+    });
+
+    updateDuration();
+  </script>
+</body>
+</html>

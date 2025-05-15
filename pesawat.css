@@ -1,0 +1,604 @@
+body {
+  margin: 0;
+  font-family: 'Georgia', serif;
+  background: #f7f7f7;
+  color: #444;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* HERO SECTION */
+.hero {
+  position: relative;
+  overflow: hidden;
+  border-radius: 25px;
+  margin: 20px auto;
+  max-width: 1200px;
+  height: 500px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  background-color: #fff;
+}
+
+.hero-bg {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(70%);
+  border-radius: 25px;
+  z-index: 0;
+}
+
+.navbar {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 16px 40px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px;
+  position: relative;
+  z-index: 10;
+  box-shadow: 0 2px 6px rgba(140,111,78,0.15);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.brand {
+  font-size: 1.8em;
+  font-style: italic;
+  color: #8c6f4e;
+  user-select: none;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 28px;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #5b4431;
+  font-size: 1.2em;
+  transition: color 0.3s ease;
+  padding: 4px 0;
+  border-bottom: 2px solid transparent;
+  font-variant: small-caps;
+}
+
+.nav-links a:hover,
+.nav-links a:focus {
+  color: #8c6f4e;
+  border-bottom-color: #8c6f4e;
+  outline: none;
+}
+
+.auth-buttons .login,
+.auth-buttons .signin {
+  padding: 10px 18px;
+  margin-left: 12px;
+  border-radius: 6px;
+  font-weight: 700;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  font-size: 1rem;
+}
+
+.login {
+  background-color: white;
+  color: #444;
+  border: 1.8px solid #ccc;
+}
+
+.login:hover,
+.login:focus {
+  background-color: #f5f3ef;
+  outline: none;
+}
+
+.signin {
+  background-color: #8c6f4e;
+  color: white;
+  border: none;
+}
+
+.signin:hover,
+.signin:focus {
+  background-color: #705b3d;
+  outline: none;
+}
+.login, .signin {
+  text-decoration: none;   /* hilangkan garis bawah */
+  border-bottom: none;     /* pastikan border bawah hilang */
+  outline: none;           /* hilangkan outline saat fokus */
+}
+
+
+.hero-text {
+  position: absolute;
+  top: 32%;
+  left: 10%;
+  max-width: 500px;
+  color: white;
+  z-index: 20;
+  font-style: italic;
+  user-select: none;
+}
+
+.hero-text h1 {
+  font-size: 3rem;
+  font-weight: 900;
+  line-height: 1.15;
+  margin-bottom: 0.5em;
+}
+
+.hero-text span {
+  color: #f8f4f0;
+}
+
+/* FORM SECTION */
+.form-box {
+  background: #eee0c9;
+  padding: 25px 30px;
+  border-radius: 25px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin: -90px auto 40px;  /* kiri dan kanan auto agar center */
+  max-width: 1200px;
+  box-shadow: 0 6px 16px rgba(140,111,78,0.1);
+  justify-content: center;   /* supaya isi form berada di tengah */
+  position: relative;
+  z-index: 15;
+}
+
+
+.form-item {
+  background: #c7a17a;
+  padding: 10px 16px;
+  border-radius: 14px;
+  color: white;
+  font-weight: 700;
+  flex: 1 1 calc(16.666% - 16px);
+  min-width: 120px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  font-size: 0.9rem;
+  transition: background-color 0.3s ease;
+}
+
+.form-item:hover,
+.form-item:focus-within {
+  background: #b18b5f;
+}
+
+.form-item label {
+  margin-bottom: 6px;
+  color: #4e3c2e;
+  font-weight: 600;
+  font-size: 0.85rem;
+  user-select: none;
+}
+
+.form-item select,
+.form-item input[type="date"] {
+  background: none;
+  border: none;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #2e1c10;
+  cursor: pointer;
+  width: 100%;
+  padding: 6px 0;
+}
+
+.form-item select:focus,
+.form-item input:focus {
+  outline: 2px solid #8c6f4e;
+  outline-offset: 2px;
+}
+
+.form-item.arrow {
+  flex: 0 0 40px;
+  background: none;
+  color: #2e1c10;
+  font-size: 1.6rem;
+  padding-top: 28px;
+  text-align: center;
+  user-select: none;
+  align-self: center;
+}
+
+/* BUTTON */
+.search-btn {
+  background: #8c6f4e;
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 16px;
+  font-weight: 800;
+  cursor: pointer;
+  flex: 1 1 100%;
+  max-width: 140px;
+  align-self: center;
+  box-sizing: border-box;
+  transition: background-color 0.3s ease;
+  margin-top: 12px;
+  user-select: none;
+}
+
+.search-btn:hover,
+.search-btn:focus {
+  background: #705b3d;
+  outline: none;
+}
+
+/* CONTENT */
+.content {
+  padding: 48px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+h4 {
+  color: #865439;
+  margin-bottom: 12px;
+  font-weight: 700;
+  font-variant: small-caps;
+  letter-spacing: 0.06em;
+}
+
+.airlines {
+  margin-bottom: 14px;
+}
+
+.airlines span {
+  background: #eee0c9;
+  padding: 8px 16px;
+  border-radius: 16px;
+  margin-right: 14px;
+  font-weight: 700;
+  font-size: 15px;
+  color: #865439;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  user-select: none;
+}
+
+.airlines span:hover,
+.airlines span:focus {
+  background: #d6bb9f;
+  outline: none;
+}
+
+/* TICKETS */
+.ticket-cards {
+  display: flex;
+  overflow-x: auto;
+  gap: 24px;
+  margin-top: 32px;
+  padding: 18px 16px;
+  scroll-behavior: smooth;
+  border-radius: 18px;
+  background: #eee0c9;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.ticket-card {
+  background: white;
+  border-radius: 16px;
+  padding: 24px;
+  min-width: 260px;
+  max-width: 260px;
+  flex: 0 0 auto;
+  font-family: 'Georgia', serif;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+  border: 1.5px solid #eee0c9;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  cursor: default;
+  user-select: none;
+}
+
+.ticket-card:hover,
+.ticket-card:focus-within {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2);
+}
+
+.ticket-card p {
+  margin: 6px 0;
+  font-size: 14px;
+  color: #555;
+  font-weight: 500;
+}
+
+.ticket-card h3 {
+  margin: 14px 0 8px;
+  font-size: 24px;
+  color: #865439;
+  font-weight: 700;
+  user-select: text;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .hero-text h1 {
+    font-size: 2.4rem;
+  }
+  
+  .navbar {
+    padding: 16px 20px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .nav-links {
+    gap: 16px;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .form-box {
+    flex-direction: column;
+    margin: -60px 12px 30px;
+  }
+
+  .form-item {
+    flex: 1 1 100%;
+    min-width: auto;
+  }
+
+  .ticket-cards {
+    padding: 16px 12px;
+    gap: 16px;
+  }
+
+  .ticket-card {
+    min-width: 80vw;
+    max-width: 80vw;
+  }
+}
+
+@media (max-width: 600px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 12px 16px;
+    gap: 10px;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    width: 100%;
+  }
+
+  .auth-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    gap: 8px;
+  }
+
+  .hero {
+    height: auto;
+    border-radius: 18px;
+    margin: 16px;
+  }
+
+  .hero-text {
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: none;
+    padding: 20px;
+    text-align: center;
+  }
+
+  .hero-text h1 {
+    font-size: 1.8rem;
+  }
+
+  .form-box {
+    padding: 20px;
+    margin: -50px 16px 30px;
+  }
+
+  .form-item {
+    flex: 1 1 100%;
+    font-size: 0.85rem;
+    padding: 10px 12px;
+  }
+
+  .form-item.arrow {
+    display: none; /* hide arrow icon on mobile */
+  }
+
+  .search-btn {
+    width: 100%;
+    max-width: none;
+    font-size: 1rem;
+    padding: 10px 16px;
+    margin-top: 20px;
+  }
+
+  .ticket-cards {
+    padding: 12px;
+    gap: 12px;
+  }
+
+  .ticket-card {
+    min-width: 90vw;
+    max-width: 90vw;
+    padding: 20px;
+  }
+
+  .ticket-card h3 {
+    font-size: 1.2rem;
+  }
+
+  .ticket-card p {
+    font-size: 0.9rem;
+  }
+
+  .content {
+    padding: 32px 16px;
+  }
+
+  h4 {
+    font-size: 1rem;
+  }
+
+  .airlines span {
+    font-size: 14px;
+    padding: 6px 12px;
+  }
+}
+/* Smartphone sangat kecil (≤ 480px) */
+@media (max-width: 480px) {
+  .hero-text h1 {
+    font-size: 1.6rem;
+  }
+
+  .form-box {
+    margin: -40px 10px 20px;
+    padding: 16px;
+  }
+
+  .form-item {
+    font-size: 0.8rem;
+    padding: 8px 10px;
+  }
+
+  .search-btn {
+    font-size: 0.9rem;
+    padding: 10px;
+  }
+
+  .ticket-card {
+    padding: 16px;
+    min-width: 92vw;
+    max-width: 92vw;
+  }
+}
+
+/* Smartphone & Tablet Potret (≤ 768px) */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 12px 16px;
+    gap: 12px;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    gap: 10px;
+  }
+
+  .auth-buttons {
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    gap: 10px;
+  }
+
+  .hero {
+    height: auto;
+    margin: 16px;
+  }
+
+  .hero-text {
+    position: relative;
+    top: auto;
+    left: auto;
+    padding: 20px;
+    text-align: center;
+  }
+
+  .form-box {
+    flex-direction: column;
+    padding: 20px;
+    margin: -60px 16px 30px;
+  }
+
+  .form-item,
+  .search-btn {
+    flex: 1 1 100%;
+    max-width: none;
+  }
+
+  .form-item.arrow {
+    display: none;
+  }
+
+  .ticket-cards {
+    padding: 12px;
+    gap: 14px;
+  }
+
+  .ticket-card {
+    min-width: 85vw;
+    max-width: 85vw;
+  }
+
+  .content {
+    padding: 32px 16px;
+  }
+
+  h4 {
+    font-size: 1.1rem;
+  }
+
+  .airlines span {
+    font-size: 14px;
+    padding: 6px 10px;
+  }
+}
+
+/* Tablet Landscape (≤ 1024px) */
+@media (max-width: 1024px) {
+  .hero-text h1 {
+    font-size: 2.2rem;
+  }
+
+  .form-box {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .form-item {
+    flex: 1 1 45%;
+  }
+
+  .ticket-card {
+    min-width: 60vw;
+    max-width: 60vw;
+  }
+}
+
+/* Laptop/Desktop Medium (≤ 1200px) */
+@media (max-width: 1200px) {
+  .form-box {
+    padding: 20px;
+    margin: -80px 20px 40px;
+  }
+
+  .ticket-cards {
+    padding: 16px;
+  }
+}
